@@ -57,7 +57,7 @@ class ScalewayServerlessJobContext(
         [
             ("docker_image", Optional[str]),
             ("env_vars", Sequence[str]),
-            ("region", str),
+            ("region", Optional[str]),
             ("memory_limit", int),
             ("cpu_limit", int),
         ],
