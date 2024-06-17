@@ -1,6 +1,7 @@
 import argparse
 import os
 import subprocess
+from security import safe_command
 
 INPUT_JSON = os.getenv("INPUT_JSON")
 
@@ -17,8 +18,7 @@ def main():
         print("INPUT_JSON not set")
         exit(1)
 
-    with subprocess.Popen(
-        args.wrapped + [INPUT_JSON],
+    with safe_command.run(subprocess.Popen, args.wrapped + [INPUT_JSON],
         env=os.environ,
         stdout=subprocess.PIPE,
         stderr=subprocess.STDOUT,
