@@ -19,8 +19,8 @@ def hackernews_top_story_ids():
     API Docs: https://github.com/HackerNews/API#new-top-and-best-stories
     """
     top_story_ids = requests.get(
-        "https://hacker-news.firebaseio.com/v0/topstories.json"
-    ).json()
+        "https://hacker-news.firebaseio.com/v0/topstories.json", 
+    timeout=60).json()
     return top_story_ids[:10]
 
 
@@ -31,8 +31,8 @@ def hackernews_top_stories(hackernews_top_story_ids):
     results = []
     for item_id in hackernews_top_story_ids:
         item = requests.get(
-            f"https://hacker-news.firebaseio.com/v0/item/{item_id}.json"
-        ).json()
+            f"https://hacker-news.firebaseio.com/v0/item/{item_id}.json", 
+        timeout=60).json()
         results.append(item)
 
     df = pd.DataFrame(results)
