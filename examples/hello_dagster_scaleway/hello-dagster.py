@@ -6,6 +6,7 @@ from dagster_aws.s3 import S3PickleIOManager, S3Resource
 
 from dagster import Definitions, asset, MetadataValue, Output
 import scaleway
+from security import safe_requests
 
 client = scaleway.Client.from_config_file_and_env()
 
@@ -30,7 +31,7 @@ def hackernews_top_stories(hackernews_top_story_ids):
     """Get items based on story ids from the HackerNews items endpoint"""
     results = []
     for item_id in hackernews_top_story_ids:
-        item = requests.get(
+        item = safe_requests.get(
             f"https://hacker-news.firebaseio.com/v0/item/{item_id}.json"
         ).json()
         results.append(item)
